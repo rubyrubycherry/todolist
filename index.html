@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>To-do List</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <h1>To-do List</h1>
+
+    <form id="todoForm" class="todo-form">
+      <input
+        id="todoInput"
+        type="text"
+        placeholder="Nhập task..."
+        autocomplete="off"
+      />
+      <button type="submit">Add</button>
+    </form>
+
+    <p class="hint">Enter để thêm task • Click Done để hoàn thành • Xóa để xóa</p>
+
+    <ul id="todoList" class="todo-list"></ul>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
