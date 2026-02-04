@@ -6,6 +6,7 @@ const todoList = document.querySelector("#todoList");
 // 2) Dữ liệu chính: mảng chứa các task
 // Mỗi task là 1 object: { id, text, done }
 let todos = [];
+const STORAGE_KEY = "my_todos";
 
 // 3) Hàm tạo ID đơn giản (đủ dùng cho mini project)
 function createId() {
@@ -70,14 +71,18 @@ function addTodo(text) {
   };
 
   todos.push(newTodo);
+  saveTodos();
   renderTodos();
 }
+
 
 // 6) Hàm xóa task
 function deleteTodo(id) {
   todos = todos.filter((todo) => todo.id !== id);
+  saveTodos();
   renderTodos();
 }
+
 
 // 7) Hàm toggle done/undo
 function toggleTodo(id) {
@@ -88,7 +93,22 @@ function toggleTodo(id) {
     return todo;
   });
 
+  saveTodos();
   renderTodos();
+}
+
+function saveTodos() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+}
+
+function loadTodos() {
+  const data = localStorage.getItem(STORAGE_KEY);
+
+  if (data) {
+    todos = JSON.parse(data);
+  } else {
+    todos = [];
+  }
 }
 
 // 8) Bắt sự kiện submit form (Enter hoặc click Add)
@@ -104,5 +124,7 @@ todoForm.addEventListener("submit", (event) => {
   todoInput.focus();
 });
 
-// 9) Render lần đầu (hiện danh sách rỗng)
+// 9) Render lần đầu (hiện danh sách rỗng), load dữ liệu khi mở trang
+loadTodos();
 renderTodos();
+
